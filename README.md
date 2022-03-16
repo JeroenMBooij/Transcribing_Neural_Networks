@@ -10,7 +10,6 @@ The goal for this project was to learn about the math involved with neural netwo
   
 <b>steps</b>
 <ol>
-  <li>Override secrets in docker-compose with a docker-compose.vs.debug.yml file or define the secrets as environment variables in your pipeline</li>
   <li>Run "docker-compose up -d" from the root directory of this project</li>
   <li>Open localhost:8000</li>
  </ol>
