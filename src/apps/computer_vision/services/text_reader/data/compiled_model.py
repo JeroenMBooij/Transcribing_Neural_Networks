@@ -18,9 +18,9 @@ class CompiledModel:
 
     
     @staticmethod 
-    def get_instance(tokenizer, input_size):
+    def get_instance(input_size):
       if CompiledModel.instance is None:
-          CompiledModel(tokenizer, input_size)
+          CompiledModel(input_size)
       
       return CompiledModel.instance
 

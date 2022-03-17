@@ -14,6 +14,7 @@ class TextTrainService:
     def start(output_path, datasource_name):
 
         input_size = (1024, 128, 1)
+        arch = 'flor'
 
         #TODO implement didac source (instead of iam) in DataGenerator
         dtgen = DataGenerator(source=os.path.join(output_path, datasource_name),
@@ -21,7 +22,7 @@ class TextTrainService:
                               charset=string.printable[:95],
                               max_text_length=128)
 
-        model = HTRModel(architecture='flor',
+        model = HTRModel(architecture=arch,
                          input_size=input_size,
                          vocab_size=dtgen.tokenizer.vocab_size,
                          beam_width=10,
@@ -29,7 +30,7 @@ class TextTrainService:
                          reduce_tolerance=15)
         model.compile(learning_rate=0.001)
 
-        model.summary(output_path, "summary.txt")
+        model.summary(output_path, f"{arch}.summary.txt")
         callbacks = model.get_callbacks(logdir=output_path, checkpoint=output_path, verbose=1)
 
         start_time = datetime.datetime.now()
@@ -43,15 +44,15 @@ class TextTrainService:
                         verbose=1)
         total_time = datetime.datetime.now() - start_time
 
-        TextTrainService._log_training_results(h, total_time, dtgen, output_path)
+        TextTrainService._log_training_results(h, total_time, dtgen, output_path, arch)
 
-        newModel = CompiledModel.get_instance()
+        newModel = CompiledModel.get_instance(input_size)
         newModel.update(input_size)
 
     
 
     @staticmethod
-    def _log_training_results(h, total_time, dtgen, output_path):
+    def _log_training_results(h, total_time, dtgen, output_path, arch):
         loss = h.history['loss']
         val_loss = h.history['val_loss']
 
@@ -74,7 +75,7 @@ class TextTrainService:
             f"Validation loss:         {min_val_loss:.8f}"
         ])
 
-        with open(os.path.join(output_path, "train.txt"), "w") as lg:
+        with open(os.path.join(output_path, f"{arch}.train.txt"), "w") as lg:
             lg.write(t_corpus)
 
 

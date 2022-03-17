@@ -32,7 +32,7 @@ class TextTrainingView(APIView):
 
         output_path = os.path.join('src', 'apps', 'computer_vision', 'services','text_reader', 'files')
         data_file = request.FILES['file']
-        
+
         with open(f'{output_path}/{data_file.name}', 'wb+') as destination:
             for chunk in data_file.chunks():
                 destination.write(chunk)
@@ -41,3 +41,4 @@ class TextTrainingView(APIView):
         train_thread.start()
 
         return HttpResponse(status=200)
+

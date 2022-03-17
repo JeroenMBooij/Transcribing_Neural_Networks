@@ -1,3 +1,4 @@
+import os
 from django.http.response import HttpResponse
 from rest_framework.views import APIView
 from drf_spectacular.utils import extend_schema
@@ -32,6 +33,41 @@ class TextVisionView(APIView):
     )
     def post(self, request):
 
+        source_path = os.path.join('src', 'apps', 'computer_vision', 'services','text_reader', 'files')
+        if os.path.exists(f'{source_path}/handwritten_text_model.hdf5') == False:
+            return HttpResponse('No character NN Checkpoint found', status=400)
+
         prediction = TextReadService.predict(request.FILES['file'])
 
         return JsonResponse({"results": prediction}, status=201)
+
+
+    
+    @extend_schema(
+        request={
+            'multipart/form-data': {
+                'type': 'object',
+                'properties': {
+                    'file': {
+                        'type': 'string',
+                        'format': 'binary'
+                    }
+                }
+            }
+        },
+        description='Add new Keras checkpoint (hdf5) for the computer vision neural network',
+    )
+    def put(self, request):
+
+        output_path = os.path.join('src', 'apps', 'computer_vision', 'services','text_reader', 'files')
+        data_file = request.FILES['file']
+        
+        file_name, file_extension = os.path.splitext(data_file.name)
+        if file_extension != ".hdf5":
+            return HttpResponse(status=400)
+
+        with open(f'{output_path}/handwritten_text_model.hdf5', 'wb+') as destination:
+            for chunk in data_file.chunks():
+                destination.write(chunk)
+
+        return HttpResponse(status=201)
