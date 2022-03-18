@@ -13,7 +13,7 @@ The goal for this project was to learn about the math involved with neural netwo
 <h1>Deployment </h1>
 
 * prerequisite - docker installed <br/><br/>
-* optionally: <br/>
+* optionally (TODO: split and merge hdf5 files so they can be uploaded to Github): <br/>
   * add a keras checkpoint hdf5 file called handwritten_text_model.hdf5 inside src/apps/computer_vision_services_text_reader/files if you do not have this file you will have to use the computer vision train text endpoint to generate the file. This will take a couple of hours. The file is also too large too upload to Github. <br/>
   * add a keras checkpoint hdf5 file called all_handwritten_characters_model.hdf5 inside src/apps/computer_vision_services_text_reader/files/models
 
