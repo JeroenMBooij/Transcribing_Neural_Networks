@@ -11,6 +11,7 @@ from src.apps.computer_vision.utils.image_util import ImageUtil
 class TextVisionView(APIView):
 
     @extend_schema(
+        description='Upload an image with a height of 90 pixels of (a) handwritten word(s)',
         request={
             'multipart/form-data': {
                 'type': 'object',

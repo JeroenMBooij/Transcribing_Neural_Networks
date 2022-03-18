@@ -4,8 +4,6 @@ import os
 from src.apps.computer_vision.services.text_reader.data.compiled_model import CompiledModel
 from src.apps.computer_vision.services.text_reader.data.generator import DataGenerator
 from src.apps.computer_vision.services.text_reader.network.model import HTRModel
-from django.core.files.storage import default_storage
-from django.core.files.base import ContentFile
 
 
 class TextTrainService:
