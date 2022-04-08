@@ -43,7 +43,7 @@ class TextVisionView(APIView):
 
         prediction = TextReadService.predict(request.FILES['file'])
 
-        return JsonResponse({"results": prediction}, status=201)
+        return JsonResponse(prediction, status=201)
 
 
     
