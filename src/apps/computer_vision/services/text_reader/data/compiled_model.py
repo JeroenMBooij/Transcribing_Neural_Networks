@@ -28,12 +28,12 @@ class CompiledModel:
         return self.model.predict(x_test, ctc_decode=ctc_decode)
 
     def updateModel(self, input_size):
-        if tokenizer is None:
-            tokenizer = Tokenizer(chars=string.printable[:95], max_text_length=128)
+        if self.tokenizer is None:
+            self.tokenizer = Tokenizer(chars=string.printable[:95], max_text_length=128)
         
         self.model = HTRModel(architecture='flor',
                             input_size=input_size,
-                            vocab_size=tokenizer.vocab_size,
+                            vocab_size=self.tokenizer.vocab_size,
                             beam_width=10,
                             top_paths=10)
 
