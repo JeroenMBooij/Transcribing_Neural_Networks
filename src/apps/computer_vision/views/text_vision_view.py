@@ -39,8 +39,6 @@ class TextVisionView(APIView):
         if os.path.exists(f'{source_path}/handwritten_text_model.hdf5') == False:
             return HttpResponse('No character NN Checkpoint found', status=400)
 
-        print(request.FILES, file=sys.stderr)
-
         prediction = TextReadService.predict(request.FILES['file'])
 
         return JsonResponse(prediction, status=201)

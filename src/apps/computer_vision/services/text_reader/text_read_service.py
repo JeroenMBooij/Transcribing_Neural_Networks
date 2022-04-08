@@ -14,6 +14,6 @@ class TextReadService:
         predicts, probabilities = model.predict(x_test, ctc_decode=True)
         predicts = [[model.tokenizer.decode(x) for x in y] for y in predicts]
 
-        return { "predictions": predicts, "probabilities": probabilities[0].tolist() }
+        return { "predictions": predicts[0], "probabilities": probabilities[0].tolist() }
 
 
