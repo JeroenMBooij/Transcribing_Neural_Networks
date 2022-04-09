@@ -25,11 +25,9 @@ class TextVisionView(APIView):
             }
         },
         responses = { 
-            201: {
-                "results": {
-                    "predictions": [],
-                    "probabilties": []
-                }
+            200: {
+                "predictions": [],
+                "probabilties": []
             }
         }
     )
@@ -41,7 +39,7 @@ class TextVisionView(APIView):
 
         prediction = TextReadService.predict(request.FILES['file'])
 
-        return JsonResponse(prediction, status=201)
+        return JsonResponse(prediction, status=200, safe=False)
 
 
     
@@ -72,4 +70,4 @@ class TextVisionView(APIView):
             for chunk in data_file.chunks():
                 destination.write(chunk)
 
-        return HttpResponse(status=201)
+        return HttpResponse(status=204)
