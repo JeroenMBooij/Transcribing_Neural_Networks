@@ -10,8 +10,7 @@ WORKDIR ${PROJECT_DIR}
 
 COPY . ${PROJECT_DIR}/
 
-RUN apt-get update
+RUN apt-get update -y
 RUN apt-get install ffmpeg libsm6 libxext6  -y
-RUN apt-get install libcudart11.0 -y
 RUN pipenv lock
 RUN pipenv install --system --deploy
