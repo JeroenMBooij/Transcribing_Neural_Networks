@@ -12,6 +12,6 @@ COPY . ${PROJECT_DIR}/
 
 RUN apt-get update
 RUN apt-get install ffmpeg libsm6 libxext6  -y
-RUN sudo apt-get -y install libcudart11.0
+RUN apt-get install libcudart11.0 -y
 RUN pipenv lock
 RUN pipenv install --system --deploy
