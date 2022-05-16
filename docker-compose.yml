@@ -13,4 +13,12 @@ services:
       environment:
         DJANGO_DEBUG: 1
         ALLOWED_HOSTS: '*'
+    
+    recognition.nginx:
+      image: recognition.nginx
+      build: ./nginx
+      volumes:
+        - /static:/static
+      ports:
+       - 7080:80
 
