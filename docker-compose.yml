@@ -2,17 +2,15 @@ version: '3.9'
 
 services:
     recognition.service:
-        image: recognition.service
-        build: .
-        container_name: recognition.service
-        volumes:
-            - .:/usr/project
-        ports:
-        - 7000:8000
-        - 6999:3000
-        entrypoint: ["/bin/sh","-c"]
-        command: 
-        - |
-            python manage.py runserver 0.0.0.0:8000
-        environment:
-          DJANGO_DEBUG: 'True'
+      image: recognition.service
+      restart: always
+      build: .
+      container_name: recognition.service
+      volumes:
+          - ./src:/src
+      ports:
+      - 7000:8000
+      environment:
+        DJANGO_DEBUG: 1
+        ALLOWED_HOSTS: '*'
+

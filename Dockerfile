@@ -1,7 +1,6 @@
-FROM python:3.8 as base
+FROM python:3.8
 
 RUN pip install pipenv
-RUN pip install mysqlclient
 
 ENV PYTHONUNBUFFERED=1
 ENV PROJECT_DIR /usr/project
@@ -13,4 +12,7 @@ COPY . ${PROJECT_DIR}/
 RUN apt-get update -y
 RUN apt-get install ffmpeg libsm6 libxext6  -y
 RUN pipenv lock
-RUN pipenv install --system --deploy
+RUN pipenv install --system
+
+COPY ./entrypoint.sh /
+ENTRYPOINT [ "sh", "/entrypoint.sh" ]

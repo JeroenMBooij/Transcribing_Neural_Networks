@@ -19,6 +19,7 @@ pandas = "*"
 sklearn = "*"
 h5py = "*"
 tqdm = "*"
+gunicorn = "*"
 
 [dev-packages]
 
